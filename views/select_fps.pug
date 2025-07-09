@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1#wb-cont(property="name")= title
-  form(method='POST' action='' novalidate='novalidate')
+  form(method='POST' action='#' novalidate)
     .form-group
       label(for='question') Load commodity question
       select#question.form-control(name='question')
