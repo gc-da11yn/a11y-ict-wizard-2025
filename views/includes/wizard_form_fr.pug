@@ -4,8 +4,8 @@ mixin checkbox(label, name, onlyIf, descri, isUber, isUnique)
   if name === undefined
     -name = 'checkbox' + i++
   - var descri = description
-  .checkbox(id=name)
-    label(for=name)
+  .checkbox(data-question-id=name)
+    label
       input(id=name type='checkbox' name=name class=(onlyIf ? 'onlyIf' : false) class=(isUber ? 'isUber' : false) class=(isUnique ? 'isUnique' : false))
       span.remove-disabled-text
         | !{label}
@@ -19,22 +19,22 @@ mixin checkbox(label, name, onlyIf, descri, isUber, isUnique)
         | Plus d'informations sur:
         br
         | '!{label}'
-    div.modal-body#dialog
+    div.modal-body(id=`dialog${name}`)
       p Description:
       | !{descri}
 
 section#wizard
   //- p
-  //-   strong Instructions: 
+  //-   strong Instructions:
   //-   | Check all that may apply to the ICT you are procuring.
   fieldset
     legend
       span.field-name L’approvisionnement en <abbr title="Technologies de l'information et de la communication">TIC</abbr> French to be updated in future:
-    
+
     - var uberQuestions_list = [];
     - var nonUberQuestions_list = [];
     - var uniqueQuestions_list = [];
-    
+
     each question in question_list
         if question.isUber
           - uberQuestions_list.push(question);
@@ -100,7 +100,7 @@ section#wizard
             each question, index in uniqueQuestions_list
               if index > uniqueQuestions_list.length/2
                 +checkbox(question.frName, question._id, question.onlyIf, question.frDescription, question.isUber, question.isUnique)
-    
+
   //- Hidden data (for client-side javascript)
   div.wb-inv(aria-live="polite")
     p.disabledQuestions.hidden Nothing disabled
@@ -109,22 +109,21 @@ section#wizard
       ul.question(data-question-id=question._id)
         each clause in question.clauses
           li !{clause._id}
-  
-  .hidden#uber-question-data
+   .hidden#uber-question-data
     each question in uberQuestions_list
       //- p #{question._id}: #{question.name}
-      ul.question(uber-data-question-id=question._id)
+      ul.question(data-uber-question-id=question._id)
         each clause in question.clauses
           li !{clause._id}
-  
+
   .hidden#unique-question-data
     each question in uniqueQuestions_list
-      ul.question(unique-data-question-id=question._id)
+      ul.question(data-unique-question-id=question._id)
         each clause in question.clauses
           li !{clause._id}
-  
+
   .hidden#non-uber-question-data
     each question in nonUberQuestions_list
-      ul.question(non-uber-data-question-id=question._id)
+      ul.question(data-non-uber-question-id=question._id)
         each clause in question.clauses
           li !{clause._id}

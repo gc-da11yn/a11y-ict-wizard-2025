@@ -88,8 +88,11 @@ var updateQuestionSelections = function () {
     if (label.length === 0) {
       console.log(questionText + " was not found to match any checkboxes");
     } else {
-      var checkbox = document.querySelector('.checkbox input[id="' + label.attr('for') + '"]');
-      checkbox.checked = true;
+      // Find the input within the label (since labels now nest inputs)
+      var checkbox = label.find('input[type="checkbox"]')[0];
+      if (checkbox) {
+        checkbox.checked = true;
+      }
     }
   });
   updateWizard();
@@ -211,7 +214,7 @@ var showRemoved = function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
-      var $element = $('.checkbox#' + questionId);
+      var $element = $('.checkbox[data-question-id="' + questionId + '"]');
       $element.removeClass('hidden');
     });
     $('.disabledQuestions').removeClass('hidden');
@@ -225,7 +228,7 @@ var showRemoved = function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
-      var $element = $('.checkbox#' + questionId);
+      var $element = $('.checkbox[data-question-id="' + questionId + '"]');
       $element.removeClass('hidden');
     });
     $('.disabledQuestions').removeClass('hidden');
@@ -239,7 +242,7 @@ var showRemoved = function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
-      var $element = $('.checkbox#' + questionId);
+      var $element = $('.checkbox[data-question-id="' + questionId + '"]');
       $element.removeClass('hidden');
     });
     $('.disabledQuestions').removeClass('hidden');
@@ -256,7 +259,7 @@ var showRemoved = function () {
     $('.disabledClauses').removeClass('hidden');
     $('.disabledClauses').text("Disable clauses are now shown.")
     setTimeout(function () { $('.disabledClauses').addClass('hidden'); }, 500);
-    
+
     // Update the ARIA tree visibility after showing items
     if (window.trees && window.trees.length > 0) {
       for (var i = 0; i < window.trees.length; i++) {
@@ -273,7 +276,7 @@ var hideRemoved = function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
-      var $element = $('.checkbox#' + questionId);
+      var $element = $('.checkbox[data-question-id="' + questionId + '"]');
       $element.addClass('hidden');
     });
     $('.disabledQuestions').removeClass('hidden');
@@ -287,7 +290,7 @@ var hideRemoved = function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
-      var $element = $('.checkbox#' + questionId);
+      var $element = $('.checkbox[data-question-id="' + questionId + '"]');
       $element.addClass('hidden');
     });
     $('.disabledQuestions').removeClass('hidden');
@@ -301,7 +304,7 @@ var hideRemoved = function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
-      var $element = $('.checkbox#' + questionId);
+      var $element = $('.checkbox[data-question-id="' + questionId + '"]');
       $element.addClass('hidden');
     });
     $('.disabledQuestions').removeClass('hidden');
@@ -320,7 +323,7 @@ var hideRemoved = function () {
     $('.disabledClauses').removeClass('hidden');
     $('.disabledClauses').text("Disable clauses are now hidden.");
     setTimeout(function () { $('.disabledClauses').addClass('hidden'); }, 500);
-    
+
     // Update the ARIA tree visibility after hiding items
     if (window.trees && window.trees.length > 0) {
       for (var i = 0; i < window.trees.length; i++) {
@@ -502,7 +505,7 @@ var step1SubsetsQuestionHandler = function () {
   $('#wizard input.isUber:checked').each(function () {
     var questionId = this.id;
     var $questionStep1Checkbox = $(this);
-    var $element = $('.checkbox#' + questionId);
+    var $element = $('.checkbox[data-question-id="' + questionId + '"]');
     var $dialogLink = $('a[href="#moreInfo' + questionId + '"]');
 
     if (!checkedStep1QuestionsIds.includes(questionId)) {
@@ -543,7 +546,7 @@ var step1SubsetsQuestionHandler = function () {
   $('#wizard input.isUber:checked').each(function () {
     var questionId = this.id;
     checkedStep1QuestionsIds.push(questionId);
-    $('#uber-question-data ul[uber-data-question-id=' + questionId + '] li').each(function () {
+    $('#uber-question-data ul[data-uber-question-id=' + questionId + '] li').each(function () {
       $clause = $('#' + this.innerHTML);
       if (!$clause.is(':checked') && $clause.closest('li').hasClass('endNode') && !$clause.closest('li').hasClass('informative')) {
         if (!uncheckedStep1ClauseIds.includes(this.innerHTML.trim())) {
@@ -564,7 +567,7 @@ var step1SubsetsQuestionHandler = function () {
     var covered = true;
     var checkedParentinStep1 = true;
 
-    $('#uber-question-data ul[uber-data-question-id=' + questionId + '] li').each(function () {
+    $('#uber-question-data ul[data-uber-question-id=' + questionId + '] li').each(function () {
       var clauseId = this.innerHTML.trim();
       $clause = $('#' + this.innerHTML);
       if (!$clause.is(':checked') && $clause.closest('li').hasClass('endNode') && !$clause.closest('li').hasClass('informative')) {
@@ -574,7 +577,7 @@ var step1SubsetsQuestionHandler = function () {
       }
     });
 
-    $('#uber-question-data ul[uber-data-question-id=' + questionId + '] li').each(function () {
+    $('#uber-question-data ul[data-uber-question-id=' + questionId + '] li').each(function () {
       $clause = $('#' + this.innerHTML);
       if (covered) {
         if ($clause.is(':checked') && $clause.closest('li').hasClass('endNode') && !$clause.closest('li').hasClass('informative') && checkedParentinStep1) {
@@ -583,7 +586,7 @@ var step1SubsetsQuestionHandler = function () {
       }
     });
 
-    var $element = $('.checkbox#' + questionId);
+    var $element = $('.checkbox[data-question-id="' + questionId + '"]');
     var $questionStep1Checkbox = $(this);
     var $dialogLink = $('a[href="#moreInfo' + questionId + '"]');
 
@@ -630,7 +633,7 @@ var step2QuestionHandler = function () {
   $('#wizard input:checked').not('.isUber').not('.isUnique').each(function () {
     var questionId = this.id;
     var $questionStep2Checkbox = $(this);
-    var $element = $('.checkbox#' + questionId);
+    var $element = $('.checkbox[data-question-id="' + questionId + '"]');
     var $dialogLink = $('a[href="#moreInfo' + questionId + '"]');
 
     if (!checkedStep2QuestionsIds.includes(questionId)) {
@@ -675,7 +678,7 @@ var step2QuestionHandler = function () {
   }
   $('#wizard input.isUber:checked').each(function () {
     var questionId = this.id;
-    $('#uber-question-data ul[uber-data-question-id=' + questionId + '] li').each(function () {
+    $('#uber-question-data ul[data-uber-question-id=' + questionId + '] li').each(function () {
       $clause = $('#' + this.innerHTML);
       if (!$clause.is(':checked') && $clause.closest('li').hasClass('endNode') && !$clause.closest('li').hasClass('informative')) {
         if (!uncheckedStep2ClauseIds.includes(this.innerHTML.trim())) {
@@ -699,8 +702,8 @@ var step2QuestionHandler = function () {
     }
 
     // Used to link the Step 1 question and the Step 2 question
-    // Verifies if all the clauses unchecked from the non-uber question are found in the array 
-    $('#non-uber-question-data ul[non-uber-data-question-id=' + questionId + '] li').each(function () {
+    // Verifies if all the clauses unchecked from the non-uber question are found in the array
+    $('#non-uber-question-data ul[data-non-uber-question-id=' + questionId + '] li').each(function () {
       var clauseId = this.innerHTML.trim();
       $clause = $('#' + this.innerHTML);
       // only check unchecked non-informative endnode clauses
@@ -713,7 +716,7 @@ var step2QuestionHandler = function () {
     });
 
     // Verifies if all the clauses of the non-uber question are all unchecked, if they are covered = true
-    $('#non-uber-question-data ul[non-uber-data-question-id=' + questionId + '] li').each(function () {
+    $('#non-uber-question-data ul[data-non-uber-question-id=' + questionId + '] li').each(function () {
       $clause = $('#' + this.innerHTML);
       if (covered) {
         // If clause is checked that means that uber question was not selected and question is not covered.
@@ -723,7 +726,7 @@ var step2QuestionHandler = function () {
       }
     });
 
-    var $element = $('.checkbox#' + questionId);
+    var $element = $('.checkbox[data-question-id="' + questionId + '"]');
     var $questionStep2Checkbox = $(this);
     var $dialogLink = $('a[href="#moreInfo' + questionId + '"]');
 
@@ -765,7 +768,7 @@ var step3QuestionHandler = function () {
     var questionId = this.id;
     console.log(questionId, "question ID in Step 3");//debugging issue with step 3 questions dissapearing
     var $questionStep3Checkbox = $(this);
-    var $element = $('.checkbox#' + questionId);
+    var $element = $('.checkbox[data-question-id="' + questionId + '"]');
     var $dialogLink = $('a[href="#moreInfo' + questionId + '"]');
 
     if (!checkedStep3QuestionsIds.includes(questionId)) {
@@ -811,7 +814,7 @@ var step3QuestionHandler = function () {
   }
   $('#wizard input.isUber:checked').each(function () {
     var questionId = this.id;
-    $('#uber-question-data ul[uber-data-question-id=' + questionId + '] li').each(function () {
+    $('#uber-question-data ul[data-uber-question-id=' + questionId + '] li').each(function () {
       $clause = $('#' + this.innerHTML);
       if (!$clause.is(':checked') && $clause.closest('li').hasClass('endNode') && !$clause.closest('li').hasClass('informative')) {
         if (!uncheckedStep3ClauseIds.includes(this.innerHTML.trim())) {
@@ -823,7 +826,7 @@ var step3QuestionHandler = function () {
   //let's try again
   $('#wizard input:checked').not('.isUber').not('.isUnique').each(function () {
     var questionId = this.id;
-    $('#non-uber-question-data ul[non-uber-data-question-id=' + questionId + '] li').each(function () {
+    $('#non-uber-question-data ul[data-non-uber-question-id=' + questionId + '] li').each(function () {
       $clause = $('#' + this.innerHTML);
       if (!$clause.is(':checked') && $clause.closest('li').hasClass('endNode') && !$clause.closest('li').hasClass('informative')) {
         if (!uncheckedStep3ClauseIds.includes(this.innerHTML.trim())) {
@@ -847,8 +850,8 @@ var step3QuestionHandler = function () {
     }
 
     // Used to link the Step 1 question and the Step 3? question
-    // Verifies if all the clauses unchecked from the non-uber question are found in the array 
-    $('#unique-question-data ul[unique-data-question-id=' + questionId + '] li').each(function () {
+    // Verifies if all the clauses unchecked from the non-uber question are found in the array
+    $('#unique-question-data ul[data-unique-question-id=' + questionId + '] li').each(function () {
       var clauseId = this.innerHTML.trim();
       $clause = $('#' + this.innerHTML);
       // only check unchecked non-informative endnode clauses
@@ -861,7 +864,7 @@ var step3QuestionHandler = function () {
     });
 
     // Verifies if all the clauses of the unique question are all unchecked, if they are covered = true
-    $('#unique-question-data ul[unique-data-question-id=' + questionId + '] li').each(function () {
+    $('#unique-question-data ul[data-unique-question-id=' + questionId + '] li').each(function () {
       $clause = $('#' + this.innerHTML);
       if (covered) {
         // If clause is checked that means that uber question was not selected and question is not covered.
@@ -872,7 +875,7 @@ var step3QuestionHandler = function () {
       }
     });
 
-    var $element = $('.checkbox#' + questionId);
+    var $element = $('.checkbox[data-question-id="' + questionId + '"]');
     var $questionStep3Checkbox = $(this);
     var $dialogLink = $('a[href="#moreInfo' + questionId + '"]');
 
@@ -906,7 +909,7 @@ var step3QuestionHandler = function () {
   console.log("");
 }
 
-// Color the clauses depending on whether they are unchecked, mixed or checked 
+// Color the clauses depending on whether they are unchecked, mixed or checked
 var step4Handler = function () {
   $('#clauses input').each(function () {
     var $this = $(this);
@@ -928,7 +931,7 @@ var step4Handler = function () {
       $checkboxContainer.addClass('hidden').attr('aria-hidden', 'true');
     }
   });
-  
+
   // Update the ARIA tree visibility after hiding/showing items
   if (window.trees && window.trees.length > 0) {
     for (var i = 0; i < window.trees.length; i++) {
