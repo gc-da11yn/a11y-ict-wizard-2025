@@ -31,10 +31,14 @@ $(document).on("wb-updated.wb-tabs", ".wb-tabs", function (event, $newPanel) {
 $(document).on("wb-ready.wb", function (event) {
 
   var trees = document.querySelectorAll('[role="tree"]');
+  
+  // Store trees globally so other code can update visibility
+  window.trees = [];
 
   for (var i = 0; i < trees.length; i++) {
     var t = new Tree(trees[i]);
     t.init();
+    window.trees.push(t);
   }
 
 });
@@ -223,6 +227,11 @@ Tree.prototype.updateVisibvarreeitems = function () {
     var parent = ti.domNode.parentNode;
 
     ti.isVisible = true;
+
+    // Check if this treeitem is hidden with the 'hidden' class
+    if (ti.domNode.classList.contains('hidden')) {
+      ti.isVisible = false;
+    }
 
     while (parent && (parent !== this.domNode)) {
 
@@ -731,9 +740,10 @@ var updateAriaChecked = function ($node) {
   }
   $node[0].setAttribute('aria-checked', checked);
   // Application specific: Parent node might have an informative child
-  if ($node.is('.parentNode')) {
-    selectInformative($node);
-  }
+// this has been disabled to support negative selection. the data currently doesn't require logic like this in step 4, but if we find a bug or need it in the future consider adapting the below to make it work.
+//  if ($node.is('.parentNode')) {
+//    selectInformative($node);
+//  }
 };
 
 // Application specific: Select child informative clauses automatically
