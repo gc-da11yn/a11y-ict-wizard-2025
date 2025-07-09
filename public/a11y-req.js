@@ -915,17 +915,17 @@ var step4Handler = function () {
       // Checkbox is in indeterminate state
       $this.siblings('span.remove-text').text('');
       $this.siblings('span').css('color', '#333333');
-      $checkboxContainer.removeClass('hidden');
+      $checkboxContainer.removeClass('hidden').removeAttr('aria-hidden');
     } else if ($this.is(':checked')) {
       // Checkbox is checked
       $this.siblings('span.remove-text').text('');
       $this.siblings('span').css('color', '#333333');
-      $checkboxContainer.removeClass('hidden');
+      $checkboxContainer.removeClass('hidden').removeAttr('aria-hidden');
     } else {
       // Checkbox is not checked
       $this.siblings('span.remove-text').text('[removed]  ');
       $this.siblings('span').css('color', '#AD0000');
-      $checkboxContainer.addClass('hidden');
+      $checkboxContainer.addClass('hidden').attr('aria-hidden', 'true');
     }
   });
   
