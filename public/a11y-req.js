@@ -224,7 +224,7 @@ var showRemoved = function () {
 
   $('#showAllRemovedStep2').click(function (e) {
     e.preventDefault();
-    $('#wizard input:checked').not('.isUber').not('.isUnique').filter(function () {
+    $('#wizard-step-2 input:checked').not('.isUber').not('.isUnique').filter(function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
@@ -238,7 +238,7 @@ var showRemoved = function () {
 
   $('#showAllRemovedStep3').click(function (e) {
     e.preventDefault();
-    $('#wizard input:checked').filter('.isUnique').filter(function () {
+    $('#wizard-step-3 input:checked').filter('.isUnique').filter(function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
@@ -286,7 +286,7 @@ var hideRemoved = function () {
 
   $('#hideAllRemovedStep2').click(function (e) {
     e.preventDefault();
-    $('#wizard input:checked').not('.isUber').not('.isUnique').filter(function () {
+    $('#wizard-step-2 input:checked').not('.isUber').not('.isUnique').filter(function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
@@ -300,7 +300,7 @@ var hideRemoved = function () {
 
   $('#hideAllRemovedStep3').click(function (e) {
     e.preventDefault();
-    $('#wizard input:checked').filter('.isUnique').filter(function () {
+    $('#wizard-step-3 input:checked').filter('.isUnique').filter(function () {
       return $(this).attr('aria-disabled') === 'true';
     }).each(function () {
       var questionId = this.id;
@@ -448,8 +448,8 @@ var undoHandler = function () {
       while ((count < previouscheckedStep2QuestionsIds.length)) {
         if (!checkedStep2QuestionsIds.includes(previouscheckedStep2QuestionsIds[count])) {
           lastInteractedQuestion = previouscheckedStep2QuestionsIds[count];
-          var $lastCheckbox = $('#wizard input#' + lastInteractedQuestion);
-          var $checkboxes = $('#wizard input[type="checkbox"]').not('.isUber').not('.isUnique');
+          var $lastCheckbox = $('#wizard-step-2 input#' + lastInteractedQuestion);
+          var $checkboxes = $('#wizard-step-2 input[type="checkbox"]').not('.isUber').not('.isUnique');
           var $lastCheckbox = $checkboxes.filter('#' + lastInteractedQuestion);
           $lastCheckbox.prop('checked', true);
         }
@@ -478,8 +478,8 @@ var undoHandler = function () {
       while ((count < previouscheckedStep3QuestionsIds.length)) {
         if (!checkedStep3QuestionsIds.includes(previouscheckedStep3QuestionsIds[count])) {
           lastInteractedQuestion = previouscheckedStep3QuestionsIds[count];
-          var $lastCheckbox = $('#wizard input#' + lastInteractedQuestion);
-          var $checkboxes = $('#wizard input[type="checkbox"]').filter('.isUnique');
+          var $lastCheckbox = $('#wizard-step-3 input#' + lastInteractedQuestion);
+          var $checkboxes = $('#wizard-step-3 input[type="checkbox"]').filter('.isUnique');
           var $lastCheckbox = $checkboxes.filter('#' + lastInteractedQuestion);
           $lastCheckbox.prop('checked', true);
         }
@@ -957,14 +957,14 @@ var setupQuestionHandler = function () {
   // step 2 check all
   $('#checkAll2').click(function (e) {
     e.preventDefault();
-    $('#wizard input').not(':checked').not('.isUber').not('.isUnique').prop('checked', true);
+    $('#wizard-step-2 input').not(':checked').not('.isUber').not('.isUnique').prop('checked', true);
     updateWizard();
     step2QuestionHandler();
   });
   // step 3 checkAll
   $('#checkAll3').click(function (e) {
     e.preventDefault();
-    $('#wizard input.isUnique').not(':checked').prop('checked', true);
+    $('#wizard-step-3 input.isUnique').not(':checked').prop('checked', true);
     updateWizard();
     step3QuestionHandler();
   });
@@ -979,14 +979,14 @@ var setupQuestionHandler = function () {
   });
   $('#uncheckAll2').click(function (e) {
     e.preventDefault();
-    $('#wizard input:checked').not('.isUber').not('.isUnique').prop('checked', false);
+    $('#wizard-step-2 input:checked').not('.isUber').not('.isUnique').prop('checked', false);
     step2QuestionHandler();
     step3QuestionHandler();
     updateWizard();
   });
   $('#uncheckAll3').click(function (e) {
     e.preventDefault();
-    $('#wizard input:checked.isUnique').prop('checked', false);
+    $('#wizard-step-3 input:checked.isUnique').prop('checked', false);
     step3QuestionHandler();
     updateWizard();
   });

@@ -23,7 +23,8 @@ mixin checkbox(label, name, onlyIf, description, isUber, isUnique)
       p Description:
       | !{descri}
 
-section#wizard
+- var sectionId = step == 1 ? 'wizard' : `wizard-step-${step}`
+section(id=sectionId)
   //- p
   //-   strong Instructions:
   //-   | Check all that may apply to the ICT you are procuring.
