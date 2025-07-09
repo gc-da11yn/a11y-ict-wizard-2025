@@ -251,11 +251,18 @@ var showRemoved = function () {
     e.preventDefault();
     $('#clauses input:not(:checked)').each(function () {
       var $element = $(this).closest('[role="treeitem"]');
-      $element.removeClass('hidden').removeAttr('aria-hidden');
+      $element.removeClass('hidden');
     });
     $('.disabledClauses').removeClass('hidden');
     $('.disabledClauses').text("Disable clauses are now shown.")
     setTimeout(function () { $('.disabledClauses').addClass('hidden'); }, 500);
+    
+    // Update the ARIA tree visibility after showing items
+    if (window.trees && window.trees.length > 0) {
+      for (var i = 0; i < window.trees.length; i++) {
+        window.trees[i].updateVisibvarreeitems();
+      }
+    }
   });
 }
 
@@ -307,12 +314,19 @@ var hideRemoved = function () {
     $('#clauses input:not(:checked)').each(function () {
       if (!$(this).prop('indeterminate')) {
         var $element = $(this).closest('[role="treeitem"]');
-        $element.addClass('hidden').attr('aria-hidden', 'true');
+        $element.addClass('hidden');
       }
     });
     $('.disabledClauses').removeClass('hidden');
     $('.disabledClauses').text("Disable clauses are now hidden.");
     setTimeout(function () { $('.disabledClauses').addClass('hidden'); }, 500);
+    
+    // Update the ARIA tree visibility after hiding items
+    if (window.trees && window.trees.length > 0) {
+      for (var i = 0; i < window.trees.length; i++) {
+        window.trees[i].updateVisibvarreeitems();
+      }
+    }
   });
 }
 
@@ -914,6 +928,13 @@ var step4Handler = function () {
       $checkboxContainer.addClass('hidden').attr('aria-hidden', 'true');
     }
   });
+  
+  // Update the ARIA tree visibility after hiding/showing items
+  if (window.trees && window.trees.length > 0) {
+    for (var i = 0; i < window.trees.length; i++) {
+      window.trees[i].updateVisibvarreeitems();
+    }
+  }
 }
 
 // Call the setup function to initialize the handler
