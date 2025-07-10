@@ -3,20 +3,20 @@ extends item_form
 block form
   -var itemExists = item!==undefined
 
-  form(method='POST' action='')
+  form(method='POST' action='.')
     .form-group
       label.required(for='number')
-        span.field-name Clause number 
+        span.field-name Clause number
         strong.required (required)
       input#number.form-control(type='text' placeholder='' required='required' name='number' value=(itemExists ? item.number : ''))
     .form-group
       label.required(for='name')
-        span.field-name Clause name (English) 
+        span.field-name Clause name (English)
         strong.required (required)
       input#name.form-control(type='text' placeholder='' required='required' name='name' value=(itemExists ? item.name : ''))
     .form-group
       label.required(for='frName')
-        span.field-name Clause name (French) 
+        span.field-name Clause name (French)
         strong.required (required)
       input#frName.form-control(lang='fr' type='text' placeholder='' required='required' name='frName' value=(itemExists ? item.frName : ''))
     .checkbox
@@ -25,25 +25,25 @@ block form
         | Informative clause (must be included with parent clause)
     .form-group
       label(for='description')
-        span.field-name Description (English) 
+        span.field-name Description (English)
       textarea#description.form-control(name='description' rows='10')
         if itemExists
           | #{item.description}
     .form-group
       label(for='frDescription')
-        span.field-name Description (French) 
+        span.field-name Description (French)
       textarea#frDescription.form-control(lang='fr' name='frDescription' rows='10')
         if itemExists
           | #{item.frDescription}
     .form-group
       label(for='compliance')
-        span.field-name Relationship to functional performance statements (English) 
+        span.field-name Relationship to functional performance statements (English)
       textarea#compliance.form-control(name='compliance' rows='10')
         if itemExists
           | #{item.compliance}
     .form-group
       label(for='frCompliance')
-        span.field-name Relationship to functional performance statements (French) 
+        span.field-name Relationship to functional performance statements (French)
       textarea#frCompliance.form-control(lang='fr' name='frCompliance' rows='10')
         if itemExists
           | #{item.frCompliance}
@@ -51,5 +51,5 @@ block form
       label(for='weight')
         span.field-name Weight (default: 1)
       input#weight.form-control(type='text' placeholder='' name='weight' value=(itemExists && item.weight ? item.weight : '1'))
-      
-    button.btn.btn-primary(type='submit') Submit 
+
+    button.btn.btn-primary(type='submit') Submit

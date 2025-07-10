@@ -6,7 +6,7 @@ block content
   p French to be updated in future
   hr
 
-  form(novalidate='novalidate' method='POST' action='')
+  form(novalidate method='POST' action='#')
     input(type="hidden" id="selectedQuestions" name="questions" value="")
     .row
       .wb-tabs
@@ -20,10 +20,10 @@ block content
             include includes/wizard_form_fr
             div
               p(style="display: inline-block; margin-right: 10px")
-                strong Nombre totale de clause applicable: 
+                strong Nombre totale de clause applicable:
               p.clause-count(style="display: inline-block") 0
             a.btn.btn-default.wb-tabs-ext.right(href='#details-step2') Suivant
-          
+
           details#details-step2
             summary Étape 2 : Préciser la fonctionnalité des TIC
             p.form-instructions-link
@@ -32,7 +32,7 @@ block content
             include includes/wizard_form_fr
             div
               p(style="display: inline-block; margin-right: 10px")
-                strong Nombre totale de clause applicable: 
+                strong Nombre totale de clause applicable:
               p.clause-count(style="display: inline-block") 0
             a.btn.btn-default.wb-tabs-ext.left(href='#details-step1', style='margin-bottom: 10px;') Précédent
             a.btn.btn-default.wb-tabs-ext.right(href='#details-step3') Suivant
@@ -45,11 +45,11 @@ block content
             include includes/wizard_form_fr
             div
               p(style="display: inline-block; margin-right: 10px")
-                strong Nombre totale de clause applicable: 
+                strong Nombre totale de clause applicable:
               p.clause-count(style="display: inline-block") 0
-            a.btn.btn-default.wb-tabs-ext.left(href='#details-step2', style='margin-bottom: 10px;') Précédent 
+            a.btn.btn-default.wb-tabs-ext.left(href='#details-step2', style='margin-bottom: 10px;') Précédent
             a.btn.btn-default.wb-tabs-ext.right(href='#details-step4') Suivant
-			
+
           details#details-step4
             summary Étape 4 : Vérifier la sélection de clause
             p.form-instructions-link
@@ -57,12 +57,12 @@ block content
             include includes/clause_tree_fr
             div
               p(style="display: inline-block; margin-right: 10px")
-                strong Nombre totale de clause applicable: 
+                strong Nombre totale de clause applicable:
               p.clause-count(style="display: inline-block") 0
             a.btn.btn-default.overlay-lnk(href='#clauseListModal' aria-controls='clauseListModal' role='button' title='Resume editing by pasting a previously generated requirements list') Entrer la liste de clauses
             a.btn.btn-default.wb-tabs-ext.left(href='#details-step3', style='margin-bottom: 10px;') Précédent
             a.btn.btn-default.wb-tabs-ext.right(href='#details-step5') Suivant
-          
+
           details#details-step5
             summary Étape 5 : Produire les documents des exigences
             p.form-instructions-link
@@ -77,7 +77,7 @@ block content
       p This needs to be copied and translated from English instructions
       p Cochez toutes les cases qui ne s’appliquent pas aux TIC que vous achetez, même celles qui semblent redondantes.
       p
-        | Prenez note que le produit / service acheté ne doit lui-même 
+        | Prenez note que le produit / service acheté ne doit lui-même
         strong pas fournir
         |  le composant ou la caractéristique. Par exemple, prenez en considération le cas de l’acquisition de service d’apprentissage en ligne :
       ol
@@ -95,7 +95,7 @@ block content
     .modal-body
       p To be copied and translated from English Instructions
       p Lorsque vous êtes satisfait de votre sélection, passez à l’étape 3 en utilisant les onglets de navigation ou le bouton « Prochain ». Des directives supplémentaires sont disponibles à chaque onglet.
-      
+
   section.wb-overlay.modal-content.overlay-def.wb-popup-mid#instructionsStep3(role='dialog')
     header.modal-header
       h2.modal-title Instructions : Étape 3
@@ -132,7 +132,7 @@ block content
         | Vous avez peut-être passé un temps considérable à affiner votre sélection de clauses. Après avoir généré des documents, vous avez fermé la page Web. Le lendemain, vous vous rendez compte que des modifications sont nécessaires. Une fonction vous permet de le faire facilement.
       p
         | Cliquez sur le bouton « Entrer la liste des clauses » situé après l’arbre des clauses. Copiez la liste des clauses de votre document précédemment généré et collez-la dans le champ du formulaire. Votre sélection de clauses précédente sera restaurée dans l’arbre des cases à cocher. Vous pouvez ensuite apporter toutes les modifications nécessaires à la sélection.
-      
+
   section.wb-overlay.modal-content.overlay-def.wb-popup-mid#instructionsStep5(role='dialog')
     header.modal-header
       h2.modal-title Instructions : Étape 5
@@ -142,7 +142,7 @@ block content
       p Vous souhaiterez peut-être donner aux documents des noms de fichiers plus  descriptifs après le téléchargement.
       h3 Modifications nécessaires aux documents Word
       p
-        | En raison des 
+        | En raison des
         a(href='https://github.com/aaact-aatia/a11y-ict-wizard#user-content-known-issues') limitations de l’outil (en anglais seulement)
         | , vous devez effectuer chacune des étapes suivantes après avoir téléchargé les documents.
       h4 Document anglais
@@ -174,8 +174,8 @@ block content
     header.modal-header
       h2.modal-title Entrez les sélections précédentes
     .modal-body
-      p Collez la liste à puces des sélections faites à partir de l'annexe X pour reprendre l'édition. 
-      p Les sélections précédentes peuvent être trouvées dans la section "portée" de la sortie qui précède la table des clauses et devrait ressembler à quelque chose comme : 
+      p Collez la liste à puces des sélections faites à partir de l'annexe X pour reprendre l'édition.
+      p Les sélections précédentes peuvent être trouvées dans la section "portée" de la sortie qui précède la table des clauses et devrait ressembler à quelque chose comme :
       ul
         li N'est pas et ne comprend pas une page Web ;
         li N'est pas et ne comprend pas un document non destiné au Web et
