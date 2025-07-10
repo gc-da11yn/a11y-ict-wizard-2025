@@ -289,6 +289,17 @@ i.info {
   outline: none;
 }
 
+/* Styling for glyphicon info icons in dialogs */
+.info-link {
+  display: inline;
+  margin-left: 4px;
+}
+
+.wb-lbx .glyphicon-info-sign {
+  color: #2239ab;
+  font-size: 14px;
+}
+
 .csstransitions .wb-tabs details.out {
     position: absolute;
     top: 0;
