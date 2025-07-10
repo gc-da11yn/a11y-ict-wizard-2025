@@ -2,10 +2,10 @@ extends layout
 
 block content
   h1 #{title}: #{item.name}
-  
+
   p Do you really want to delete this item?
-  
-  form(method='POST' action='')
+
+  form(method='POST' action='.')
     if dependencies
       div.error
         h2 The following questions reference this clause. You must delete them first.
