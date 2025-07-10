@@ -285,6 +285,13 @@ i.info {
 }
 
 .image-link:focus {
-  border: 1.5px solid black; 
-  outline: none; 
+  border: 1.5px solid black;
+  outline: none;
+}
+
+.csstransitions .wb-tabs details.out {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
 }
