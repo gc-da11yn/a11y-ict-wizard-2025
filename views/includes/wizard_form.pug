@@ -5,10 +5,11 @@ mixin checkbox(label, name, onlyIf, description, isUber, isUnique)
     -name = 'checkbox' + i++
   - var descri = description
   .checkbox(data-question-id=name)
-    label(for=name)
-      input(id=name type='checkbox' name=name class=(onlyIf ? 'onlyIf' : false) class=(isUber ? 'isUber' : false) class=(isUnique ? 'isUnique' : false))
-      span.remove-disabled-text
-      | !{label}
+    .checkbox-with-info
+      label(for=name)
+        input(id=name type='checkbox' name=name class=(onlyIf ? 'onlyIf' : false) class=(isUber ? 'isUber' : false) class=(isUnique ? 'isUnique' : false))
+        span.remove-disabled-text
+        | !{label}
       a(href=`#moreInfo${name}` aria-controls=`moreInfo${name}` class="wb-lbx lbx-modal info-link" aria-label=`Open a dialog with more info on ${label}` tabindex="0")
         span.glyphicon.glyphicon-info-sign(aria-hidden="true")
 

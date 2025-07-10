@@ -289,6 +289,17 @@ i.info {
   outline: none;
 }
 
+/* Better layout for checkbox with info icon */
+.checkbox-with-info {
+  display: inline-block;
+  width: 100%;
+}
+
+.checkbox-with-info label {
+  display: inline;
+  margin: 0;
+}
+
 /* Styling for glyphicon info icons in dialogs */
 .info-link {
   display: inline;
